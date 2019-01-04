@@ -13,5 +13,8 @@ func main() {
   }
   part1 := day01.FloorCount(string(input))
   fmt.Println("Part 1: ", part1)
+
+  part2 := day01.Basement(string(input))
+  fmt.Println("Part 2: ", part2)
 }
 

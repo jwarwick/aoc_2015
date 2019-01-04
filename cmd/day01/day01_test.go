@@ -28,3 +28,20 @@ func TestFloorCount(t *testing.T) {
     }
   }
 }
+
+func TestBasement(t *testing.T) {
+  tables := []struct {
+    input string
+    result int
+  }{
+    {")", 1},
+    {"()())", 5},
+  }
+
+  for _, table := range tables {
+    result := day01.Basement(table.input)
+    if result != table.result {
+      t.Errorf("Input: %s, expected: %d, got: %d", table.input, table.result, result)
+    }
+  }
+}
