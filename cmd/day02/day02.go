@@ -14,6 +14,6 @@ func main() {
 	part1 := day02.WrappingPaperSum(string(input))
 	fmt.Println("Part 1: ", part1)
 
-	// part2 := day01.Basement(string(input))
-	// fmt.Println("Part 2: ", part2)
+	part2 := day02.RibbonSum(string(input))
+	fmt.Println("Part 2: ", part2)
 }

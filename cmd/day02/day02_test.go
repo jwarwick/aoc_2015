@@ -21,3 +21,20 @@ func TestPaperSize(t *testing.T) {
 		}
 	}
 }
+
+func TestRibbonSize(t *testing.T) {
+	tables := []struct {
+		input  string
+		result int
+	}{
+		{"2x3x4", 34},
+		{"1x1x10", 14},
+	}
+
+	for _, table := range tables {
+		result := day02.RibbonNeeded(table.input)
+		if result != table.result {
+			t.Errorf("Input: %s, expected: %d, got: %d", table.input, table.result, result)
+		}
+	}
+}
