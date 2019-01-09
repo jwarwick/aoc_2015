@@ -11,15 +11,15 @@ import (
 func main() {
 	const Input = "yzbqklnj"
 
-	part1 := minMD5(Input)
+	part1 := minMD5(Input, part1Check)
 	fmt.Println("Part 1: ", part1)
 
-	// part2 := housesDeliveredTo(string(input), 2)
-	// fmt.Println("Part 2: ", part2)
+	part2 := minMD5(Input, part2Check)
+	fmt.Println("Part 2: ", part2)
 }
 
-func minMD5(input string) int {
-	for i := 0; i < 2500000; i++ {
+func minMD5(input string, check check_fun) int {
+	for i := 0; i < 25000000; i++ {
 		result := hash(input, i)
 		if check(result) {
 			return i
@@ -35,8 +35,16 @@ func hash(input string, cnt int) []byte {
 	return h.Sum(nil)
 }
 
-func check(input []byte) bool {
+type check_fun func([]byte) bool
+
+func part1Check(input []byte) bool {
 	return input[0] == 0 &&
 		input[1] == 0 &&
 		input[2] <= 0x0f
+}
+
+func part2Check(input []byte) bool {
+	return input[0] == 0 &&
+		input[1] == 0 &&
+		input[2] == 0
 }

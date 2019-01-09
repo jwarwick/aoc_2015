@@ -14,7 +14,7 @@ func TestMinMD5(t *testing.T) {
 	}
 
 	for _, table := range tables {
-		result := minMD5(table.input)
+		result := minMD5(table.input, part1Check)
 		if result != table.result {
 			t.Errorf("Input: %s, expected: %d, got: %d", table.input, table.result, result)
 		}

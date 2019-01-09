@@ -14,3 +14,11 @@ If your secret key is pqrstuv, the lowest number it combines with to make an MD5
 Your puzzle input is `yzbqklnj`.
 
 Answer: **282749**
+
+# Part Two
+
+Now find one that starts with six zeroes.
+
+Your puzzle input is still `yzbqklnj`.
+
+Answer: **9962624**
