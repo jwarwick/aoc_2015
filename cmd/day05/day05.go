@@ -12,15 +12,20 @@ func main() {
 		panic(err)
 	}
 
-	part1 := countNice(string(input))
+	part1 := countNice(string(input), part1Nice)
 	fmt.Println("Part 1: ", part1)
+
+	part2 := countNice(string(input), part2Nice)
+	fmt.Println("Part 2: ", part2)
 }
 
-func countNice(input string) int {
+type nice_fun func(string) bool
+
+func countNice(input string, f nice_fun) int {
 	total := 0
 	lines := splitInput(input)
 	for _, l := range lines {
-		if nice(l) {
+		if f(l) {
 			total++
 		}
 	}
@@ -33,7 +38,7 @@ func splitInput(input string) []string {
 	return lines
 }
 
-func nice(input string) bool {
+func part1Nice(input string) bool {
 	return hasVowels(input) && hasRepeats(input) && !hasNaughtyLetters(input)
 }
 
@@ -75,4 +80,32 @@ func hasNaughtyLetters(input string) bool {
 		strings.Contains(input, "cd") ||
 		strings.Contains(input, "pq") ||
 		strings.Contains(input, "xy")
+}
+
+func part2Nice(input string) bool {
+	return repeatedPair(input) && spacedDuplicate(input)
+}
+
+func repeatedPair(input string) bool {
+	for i := 0; i < len(input)-1; i++ {
+		sub := input[i : i+2]
+		count := strings.Count(input, sub)
+		if count >= 2 {
+			return true
+		}
+	}
+	return false
+}
+
+func spacedDuplicate(input string) bool {
+	var two_back rune
+	var last rune
+	for _, c := range input {
+		if c == two_back {
+			return true
+		}
+		two_back = last
+		last = c
+	}
+	return false
 }
