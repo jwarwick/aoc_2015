@@ -15,6 +15,31 @@ func main() {
 
 	part1 := countLights(string(input))
 	fmt.Println("Part 1: ", part1)
+
+	part2 := brightLights(string(input))
+	fmt.Println("Part 2: ", part2)
+}
+
+func brightLights(input string) int {
+	lines := splitInput(input)
+	areas := make([]area, len(lines))
+	for idx, l := range lines {
+		areas[idx] = parse_area(l)
+	}
+
+	total := 0
+	for y := 0; y < 1000; y++ {
+		for x := 0; x < 1000; x++ {
+			state := 0
+			for _, a := range areas {
+				if a.contains(x, y) {
+					state = a.bright_fn(state)
+				}
+			}
+			total += state
+		}
+	}
+	return total
 }
 
 func countLights(input string) int {
@@ -52,10 +77,13 @@ func parse_area(input string) area {
 	switch {
 	case strings.HasPrefix(input, "turn on"):
 		a.fn = turnOn
+		a.bright_fn = turnOnBright
 	case strings.HasPrefix(input, "turn off"):
 		a.fn = turnOff
+		a.bright_fn = turnOffBright
 	case strings.HasPrefix(input, "toggle"):
 		a.fn = toggle
+		a.bright_fn = toggleBright
 	default:
 		panic("No instruction")
 	}
@@ -83,11 +111,13 @@ func parse_int(input string) int {
 }
 
 type instruction_func func(bool) bool
+type bright_func func(int) int
 
 type area struct {
 	min_x, min_y int
 	max_x, max_y int
 	fn           instruction_func
+	bright_fn    bright_func
 }
 
 func (a *area) contains(x int, y int) bool {
@@ -105,4 +135,20 @@ func turnOff(val bool) bool {
 
 func toggle(val bool) bool {
 	return !val
+}
+
+func turnOnBright(val int) int {
+	return val + 1
+}
+
+func turnOffBright(val int) int {
+	n := val - 1
+	if n < 0 {
+		n = 0
+	}
+	return n
+}
+
+func toggleBright(val int) int {
+	return val + 2
 }
