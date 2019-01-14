@@ -31,7 +31,7 @@ func TestCircuit(t *testing.T) {
 	}
 
 	for _, v := range vars {
-		result := simulate(input, v.input)
+		result := simulate(input, v.input, make(map[string]uint16))
 		if result[v.input] != v.result {
 			t.Errorf("Variable: %s, expected: %d, got: %d", v.input, v.result, result[v.input])
 		}

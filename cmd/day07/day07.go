@@ -13,16 +13,20 @@ func main() {
 		panic(err)
 	}
 
-	part1 := simulate(string(input), "a")
+	part1 := simulate(string(input), "a", make(map[string]uint16))
 	fmt.Println("Part 1: ", part1["a"])
+
+	a := part1["a"]
+	part2 := simulate(string(input), "a", map[string]uint16{"b": a})
+	fmt.Println("Part 2: ", part2["a"])
 }
 
 var gates map[string]gate
 var wires map[string]uint16
 
-func simulate(input string, target string) map[string]uint16 {
+func simulate(input string, target string, init_wires map[string]uint16) map[string]uint16 {
 	gates = make(map[string]gate)
-	wires = make(map[string]uint16)
+	wires = init_wires
 
 	lines := splitInput(input)
 
