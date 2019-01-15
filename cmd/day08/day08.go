@@ -15,6 +15,9 @@ func main() {
 
 	part1 := memoryDiff(string(input))
 	fmt.Println("Part 1: ", part1)
+
+	part2 := encodedDiff(string(input))
+	fmt.Println("Part 2: ", part2)
 }
 
 func memoryDiff(input string) int {
@@ -33,6 +36,28 @@ func memoryDiff(input string) int {
 		memory += len(v1) - 2
 	}
 	return literals - memory
+}
+
+func encodedDiff(input string) int {
+	literals := 0
+	encoded := 0
+	lines := splitInput(input)
+
+	for _, l := range lines {
+		literals += len(l)
+		encoded += 2
+		for _, c := range l {
+			switch c {
+			case '"':
+				encoded += 2
+			case '\\':
+				encoded += 2
+			default:
+				encoded += 1
+			}
+		}
+	}
+	return encoded - literals
 }
 
 func splitInput(input string) []string {
