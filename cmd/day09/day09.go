@@ -14,11 +14,12 @@ func main() {
 		panic(err)
 	}
 
-	part1 := shortestPath(string(input))
-	fmt.Println("Part 1: ", part1)
+	shortest, longest := minMaxPath(string(input))
+	fmt.Println("Part 1: ", shortest)
+	fmt.Println("Part 2: ", longest)
 }
 
-func shortestPath(input string) int {
+func minMaxPath(input string) (int, int) {
 	lines := splitInput(input)
 
 	distances := make(map[string]map[string]int)
@@ -34,14 +35,18 @@ func shortestPath(input string) int {
 	}
 
 	p := permutations(cities)
-	best := math.MaxInt64
+	shortest := math.MaxInt64
+	longest := -1
 	for _, e := range p {
 		d := distance(e, &distances)
-		if d < best {
-			best = d
+		if d < shortest {
+			shortest = d
+		}
+		if d > longest {
+			longest = d
 		}
 	}
-	return best
+	return shortest, longest
 }
 
 func addDistance(a string, b string, d int, m *map[string]map[string]int) {
@@ -49,11 +54,6 @@ func addDistance(a string, b string, d int, m *map[string]map[string]int) {
 		(*m)[a] = make(map[string]int)
 	}
 	(*m)[a][b] = d
-}
-
-type link struct {
-	from, to string
-	distance int
 }
 
 func splitInput(input string) []string {
