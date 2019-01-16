@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"io/ioutil"
+	"math"
 	"strconv"
 	"strings"
 )
@@ -32,9 +33,15 @@ func shortestPath(input string) int {
 		cities = append(cities, k)
 	}
 
-	fmt.Println(cities)
-	fmt.Println(distances)
-	return 0
+	p := permutations(cities)
+	best := math.MaxInt64
+	for _, e := range p {
+		d := distance(e, &distances)
+		if d < best {
+			best = d
+		}
+	}
+	return best
 }
 
 func addDistance(a string, b string, d int, m *map[string]map[string]int) {
@@ -71,17 +78,40 @@ func parseLine(input string) (from string, to string, dist int) {
 	return
 }
 
-// procedure generate(n : integer, A : array of any):
-//     if n = 1 then
-//           output(A)
-//     else
-//         for i := 0; i < n - 1; i += 1 do
-//             generate(n - 1, A)
-//             if n is even then
-//                 swap(A[i], A[n-1])
-//             else
-//                 swap(A[0], A[n-1])
-//             end if
-//         end for
-//         generate(n - 1, A)
-//     end if
+func permutations(input []string) [][]string {
+	var output [][]string
+	generate(len(input), input, &output)
+	return output
+}
+
+func generate(n int, arr []string, output *[][]string) {
+	if n == 1 {
+		tmp := append([]string(nil), arr...)
+		*output = append(*output, tmp)
+	} else {
+		for i := 0; i < n-1; i++ {
+			generate(n-1, arr, output)
+			if n%2 == 0 {
+				tmp := arr[i]
+				arr[i] = arr[n-1]
+				arr[n-1] = tmp
+			} else {
+				tmp := arr[0]
+				arr[0] = arr[n-1]
+				arr[n-1] = tmp
+			}
+		}
+		generate(n-1, arr, output)
+	}
+}
+
+func distance(path []string, m *map[string]map[string]int) int {
+	total := 0
+	prev := path[0]
+	for _, curr := range path[1:] {
+		dists := (*m)[prev]
+		total += dists[curr]
+		prev = curr
+	}
+	return total
+}
