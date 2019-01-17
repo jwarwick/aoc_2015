@@ -24,3 +24,11 @@ Given Santa's current password (your puzzle input), what should his next passwor
 Your puzzle input is `hepxcrrq`.
 
 Answer: **hepxxyzz**
+
+# Part Two
+
+Santa's password expired again. What's the next one?
+
+Your puzzle input is still `hepxcrrq`.
+
+Answer: **heqaabcc**

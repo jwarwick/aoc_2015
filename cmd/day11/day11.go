@@ -8,6 +8,9 @@ func main() {
 	input := "hepxcrrq"
 	part1 := nextPassword(input)
 	fmt.Println("Part 1: ", part1)
+
+	part2 := nextPassword(part1)
+	fmt.Println("Part 2: ", part2)
 }
 
 func nextPassword(input string) string {
