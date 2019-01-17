@@ -10,6 +10,9 @@ func main() {
 	input := "1321131112"
 	part1 := lookAndSayMulti(input, 40)
 	fmt.Println("Part 1: ", len(part1))
+
+	part2 := lookAndSayMulti(input, 50)
+	fmt.Println("Part 2: ", len(part2))
 }
 
 func lookAndSayMulti(input string, repeat int) string {

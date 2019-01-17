@@ -18,3 +18,13 @@ Starting with the digits in your puzzle input, apply this process 40 times. What
 Your puzzle input is `1321131112`.
 
 Answer: **492982**
+
+# Part Two
+
+Neat, right? You might also enjoy hearing John Conway talking about this sequence (that's Conway of Conway's Game of Life fame).
+https://www.youtube.com/watch?v=ea7lJkEhytA
+Now, starting again with the digits in your puzzle input, apply this process 50 times. What is the length of the new result?
+
+Your puzzle input is still `1321131112`.
+
+Answer: **6989950**
