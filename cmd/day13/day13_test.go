@@ -18,7 +18,8 @@ David would gain 46 happiness units by sitting next to Alice.
 David would lose 7 happiness units by sitting next to Bob.
 David would gain 41 happiness units by sitting next to Carol.`
 
-	result := optimalTotal(input)
+	costs := buildCosts(input)
+	result := optimalTotal(costs)
 	if result != 330 {
 		t.Errorf("Expected: 330, got: %d", result)
 	}

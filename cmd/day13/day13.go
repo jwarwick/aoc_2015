@@ -14,12 +14,17 @@ func main() {
 		panic(err)
 	}
 
-	part1 := optimalTotal(string(input))
+	costs := buildCosts(string(input))
+
+	part1 := optimalTotal(costs)
 	fmt.Println("Part 1: ", part1)
+
+	costs["me"] = make(map[string]int)
+	part2 := optimalTotal(costs)
+	fmt.Println("Part 2: ", part2)
 }
 
-func optimalTotal(input string) int {
-	costs := buildCosts(input)
+func optimalTotal(costs costTable) int {
 	diners := make([]string, 0)
 	for k, _ := range costs {
 		diners = append(diners, k)
