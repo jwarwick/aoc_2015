@@ -13,11 +13,12 @@ func main() {
 		panic(err)
 	}
 
-	part1 := distance(string(input), 2503)
-	fmt.Println("Part 1: ", part1)
+	max, points := distance(string(input), 2503)
+	fmt.Println("Part 1: ", max)
+	fmt.Println("Part 2: ", points)
 }
 
-func distance(input string, steps int) int {
+func distance(input string, steps int) (int, int) {
 	deer := buildSpeeds(input)
 
 	for _, d := range deer {
@@ -28,15 +29,35 @@ func distance(input string, steps int) int {
 		for _, d := range deer {
 			d.step()
 		}
+		step_max := maxDistance(deer)
+		for _, d := range deer {
+			d.maybeTakePoints(step_max)
+		}
 	}
 
+	max := maxDistance(deer)
+	points := maxPoints(deer)
+
+	return max, points
+}
+
+func maxDistance(deer []*reindeer) int {
 	max := 0
 	for _, d := range deer {
 		if d.distance > max {
 			max = d.distance
 		}
 	}
+	return max
+}
 
+func maxPoints(deer []*reindeer) int {
+	max := 0
+	for _, d := range deer {
+		if d.points > max {
+			max = d.points
+		}
+	}
 	return max
 }
 
@@ -55,12 +76,19 @@ type reindeer struct {
 	distance  int
 	doing     state
 	remaining int
+	points    int
 }
 
 func (r *reindeer) initialize() {
 	r.distance = 0
 	r.doing = flying
 	r.remaining = r.on
+}
+
+func (r *reindeer) maybeTakePoints(dist int) {
+	if r.distance >= dist {
+		r.points++
+	}
 }
 
 func (r *reindeer) step() {
