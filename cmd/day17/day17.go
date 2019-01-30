@@ -14,11 +14,12 @@ func main() {
 		panic(err)
 	}
 
-	part1 := exactCombinations(string(input), 150)
+	part1, part2 := exactCombinations(string(input), 150)
 	fmt.Println("Part 1: ", part1)
+	fmt.Println("Part 2: ", part2)
 }
 
-func exactCombinations(input string, amount int) int {
+func exactCombinations(input string, amount int) (uniqueWays int, minWays int) {
 	lines := splitInput(input)
 	cnt := len(lines)
 	sizes := make([]int, cnt)
@@ -26,21 +27,32 @@ func exactCombinations(input string, amount int) int {
 		sizes[idx] = parseInt(l)
 	}
 
-	sum := 0
+	uniqueWays = 0
+	minCount := cnt + 1
+	minWays = 0
 	for i := 0.0; i < math.Pow(2, float64(cnt)); i++ {
 		bits := int(i)
 		curr := 0
+		used := 0
 		for _, s := range sizes {
 			if 1 == (bits & 0x01) {
 				curr += s
+				used++
 			}
 			bits = bits >> 1
 		}
 		if curr == amount {
-			sum += 1
+			uniqueWays += 1
+			if used < minCount {
+				minCount = used
+				minWays = 0
+			}
+			if used == minCount {
+				minWays++
+			}
 		}
 	}
-	return sum
+	return
 }
 
 func splitInput(input string) []string {

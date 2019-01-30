@@ -11,26 +11,11 @@ func TestPart1(t *testing.T) {
 5
 5`
 
-	count := exactCombinations(input, 25)
+	count, minWays := exactCombinations(input, 25)
 	if count != 4 {
-		t.Errorf("Expected: 4, got: %d", count)
+		t.Errorf("TotalWays Expected: 4, got: %d", count)
+	}
+	if minWays != 3 {
+		t.Errorf("MinWays Expected: 3, got: %d", minWays)
 	}
 }
-
-// func TestCombinations(t *testing.T) {
-// 	tables := []struct {
-// 		input  []int
-// 		result [][]int
-// 	}{
-// 		{[]int, [][]int{[]int}}
-// 		// {[1], [[], [1]]},
-// 		// {[1, 2], [[], [1], [2], [1,2]]},
-// 	}
-//
-// 	for _, table := range tables {
-// 		result := combinations(table.input)
-// 		if result != table.result {
-// 			t.Errorf("Input: %d, expected: %s, got: %s", table.input, table.result, result)
-// 		}
-// 	}
-// }
