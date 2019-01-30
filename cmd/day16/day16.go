@@ -27,11 +27,33 @@ func main() {
 
 	aunts := buildMap(string(input))
 
-	part1 := findAunt(clues, aunts)
+	part1 := findAunt(clues, aunts, part1Check)
 	fmt.Println("Part 1: ", part1)
+
+	part2 := findAunt(clues, aunts, part2Check)
+	fmt.Println("Part 2: ", part2)
 }
 
-func findAunt(clues map[string]int, aunts []map[string]int) int {
+type check func(string, int, int) bool
+
+func part1Check(_k string, v int, clue_val int) bool {
+	return v == clue_val
+}
+
+func part2Check(k string, v int, clue_val int) bool {
+	valid := true
+	switch k {
+	case "cats", "trees":
+		valid = (v > clue_val)
+	case "pomeranians", "goldfish":
+		valid = (v < clue_val)
+	default:
+		valid = (v == clue_val)
+	}
+	return valid
+}
+
+func findAunt(clues map[string]int, aunts []map[string]int, fn check) int {
 	for idx, m := range aunts {
 		valid := true
 		for k, v := range m {
@@ -39,7 +61,7 @@ func findAunt(clues map[string]int, aunts []map[string]int) int {
 			if !present {
 				continue
 			}
-			if v != clue_val {
+			if !fn(k, v, clue_val) {
 				valid = false
 				break
 			}
