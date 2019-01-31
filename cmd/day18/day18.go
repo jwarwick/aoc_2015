@@ -12,16 +12,25 @@ func main() {
 		panic(err)
 	}
 
-	part1 := simulate(string(input), 100)
+	part1 := simulate(string(input), 100, false)
 	fmt.Println("Part 1: ", part1)
+
+	part2 := simulate(string(input), 100, true)
+	fmt.Println("Part 2: ", part2)
 }
 
-func simulate(input string, steps int) int {
+func simulate(input string, steps int, cornersOn bool) int {
 	b := createBoard(input)
+	if cornersOn {
+		b.cornersOn()
+	}
 	// fmt.Println("Initial State:")
 	// b.display()
 	for i := 0; i < steps; i++ {
 		b.step()
+		if cornersOn {
+			b.cornersOn()
+		}
 		// fmt.Println("After Step ", i+1)
 		// b.display()
 	}
@@ -31,6 +40,13 @@ func simulate(input string, steps int) int {
 type board struct {
 	size int
 	grid [][]bool
+}
+
+func (b *board) cornersOn() {
+	b.grid[0][0] = true
+	b.grid[0][b.size-1] = true
+	b.grid[b.size-1][0] = true
+	b.grid[b.size-1][b.size-1] = true
 }
 
 func (b *board) count() int {
@@ -94,7 +110,6 @@ func (b *board) neighbors(baseRow int, baseCol int) int {
 }
 
 func (b *board) display() {
-	fmt.Println(b.grid)
 	for r := 0; r < b.size; r++ {
 		for c := 0; c < b.size; c++ {
 			if b.grid[r][c] {
