@@ -1,0 +1,20 @@
+base_hit_points = 100;
+
+boss_hit_points = 103;
+boss_damage = 9;
+boss_armor = 2;
+
+WEAPON = {DAGGER, SHORTSWORD, WARHAMMER, LONGSWORD, GREATAXE};
+weapon_cost = [8, 10, 25, 40, 74];
+weapon_damage = [4, 5, 6, 7, 8];
+/*weapon_armor = [0, 0, 0, 0, 0];*/
+
+ARMOR = {LEATHER, CHAINMAIL, SPLINTMAIL, BANDEDMAIL, PLATEMAIL, NONE};
+armor_cost = [13, 31, 53, 75, 102, 0];
+/*armor_damage = [0, 0, 0, 0, 0, 0];*/
+armor_armor = [1, 2, 3, 4, 5, 0];
+
+RING = {DMG1, DMG2, DMG3, DF1, DF2, DF3, E1, E2};
+ring_cost = [25, 50, 100, 20, 40, 80, 0, 0];
+ring_damage = [1, 2, 3, 0, 0, 0, 0, 0];
+ring_armor = [0, 0, 0, 1, 2, 3, 0, 0];
