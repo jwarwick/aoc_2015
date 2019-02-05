@@ -4,4 +4,6 @@ base_mana_points = 250;
 boss_hit_points = 13;
 boss_damage = 8;
 
+per_turn_damage = 0;
+
 

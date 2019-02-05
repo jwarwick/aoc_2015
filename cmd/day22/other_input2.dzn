@@ -1,0 +1,7 @@
+base_hit_points = 50;
+base_mana_points = 500;
+
+boss_hit_points = 71;
+boss_damage = 10;
+
+per_turn_damage = 1;
