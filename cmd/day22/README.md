@@ -113,4 +113,17 @@ Poison deals 3 damage. This kills the boss, and the player wins.
 
 You start with 50 hit points and 500 mana points. The boss's actual stats are in your puzzle input. What is the least amount of mana you can spend and still win the fight? (Do not include mana recharge effects as "spending" negative mana.)
 
-Answer: **900** (usage: `minizinc part1.mzn spells.dzn input.dzn`)
+Answer: **900** (usage: `minizinc model.mzn spells.dzn input1.dzn`)
+
+# Part Two
+
+On the next run through the game, you increase the difficulty to hard.
+
+At the start of each player turn (before any other effects apply), you lose 1 hit point. If this brings you to or below 0 hit points, you lose.
+
+With the same starting stats for you and the boss, what is the least amount of mana you can spend and still win the fight?
+
+Answer: **1216** (usage: `minizinc model.mzn spells.dzn input2.dzn`)
+
+# NOTE
+Doesn't work for the case where the Boss dies on the Player's turn. We still count the cost of the spell cast on that turn. See the `other_input2.dzn` file, which becomes unsatisfiable.
