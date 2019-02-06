@@ -1,0 +1,9 @@
+We solve the problem in two steps:
+  1. Solve to minimize the number of packages in the first group (n=6)
+  2. Then set that number as a constraint and minimize the qe
+
+Unforuntately, the solvers don't seem to like large numbers, so doing the product() of the array won't run.
+Instead we minimize the sum of the logarithms of the weights.
+
+The OSICBC solver is orders of magnitude faster than the default gecode solver on this problem.
+% minizinc --solver osicbc model.mzn input.dzn
