@@ -13,12 +13,16 @@ func main() {
 		panic(err)
 	}
 
-	part1 := simulate(string(input))
+	part1 := simulate(string(input), 0)
 	fmt.Println("Part 1: ", part1)
+
+	part2 := simulate(string(input), 1)
+	fmt.Println("Part 2: ", part2)
 }
 
-func simulate(input string) int {
+func simulate(input string, regA int) int {
 	p := createProgram(input)
+	p.registers[0] = regA
 	p.run()
 	return p.registers[1]
 }
